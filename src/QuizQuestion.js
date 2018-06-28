@@ -2,6 +2,13 @@ import React, { Component } from 'react' //makes react functions available in th
 import QuizQuestionButton from './QuizQuestionButton.js'
 
 class QuizQuestion extends Component {
+  handleClick (buttonText) {
+    if(buttonText === this.props.quiz_question.answer)
+    {
+      this.props.showNextQuestionHandler();
+    }
+  }
+
   render () {
     return (
       <main>
@@ -12,9 +19,9 @@ class QuizQuestion extends Component {
         </section>
         <section className="buttons">
           <ul>
-            <li>
-              <QuizQuestionButton button_text={this.props.quiz_question.answer_options[0]}/>
-            </li>
+            {this.props.quiz_question.answer_options.map((answer_option, i) => {
+            return   <QuizQuestionButton key={i} button_text={answer_option}
+                                  clickHandler={this.handleClick.bind(this)}/>})}
           </ul>
         </section>
       </main>
